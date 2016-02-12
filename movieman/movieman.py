@@ -1,5 +1,6 @@
 import requests
 import os
+import sys
 
 from pprint import pprint
 from tabulate import tabulate
@@ -22,22 +23,24 @@ def get_titles(dir_):
     return movies
 
 
-def main(dir_='/Users/kashavmadan/Downloads/movies'):
-    table = list()
-    table.append(['Title', 'Plot', 'Genre', 'Actors', 'Rating', 'Runtime', 'Released', 'Score'])
+def main(dir_=MOVIEDIR):
+    f = open(dir_ + '/movies.txt', 'w')
+
     for t in get_titles(dir_):
-        movie = request_data(t['title'][0], t['title'][1])
-        table.append([
+        movie = request_data(t['title'], t['year'])
+
+        f.write('{}\n{}\n\n{} | {}\n{} | {} | {} | {} on IMDb\n{}\n\n\n'.format(
             movie['Title'],
             movie['Plot'],
-            movie['Genre'],
+            movie['Director'],
             movie['Actors'],
-            movie['Rated'],
-            movie['Runtime'],
             movie['Released'],
-            movie['imdbRating']])
-    f = open('movies.txt', 'w')
-    f.write(tabulate(table, headers='firstrow', tablefmt='fancy_grid'))
+            movie['Runtime'],
+            movie['Rated'],
+            movie['imdbRating'],
+            'http://www.imdb.com/title/' + movie['imdbID'] + '/',
+        ))
+
     f.close()
 
 
