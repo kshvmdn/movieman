@@ -2,18 +2,14 @@ import requests
 import os
 import sys
 
-from pprint import pprint
-from tabulate import tabulate
-
 OMDB_URL = 'http://www.omdbapi.com/?type=movie&tomatoes=true&t={}&y={}'
-
+IMDB_URL = 'http://www.imdb.com/title/{}/',
+VALID_EXT = ('.avi', '.m4v', '.mkv', '.mov', '.mp4', '.mpeg', '.wmv')
 try:
     MOVIEDIR = sys.argv[1]
-except IndexError as err:
+except IndexError:
     print('Expected movie path')
     sys.exit(1)
-
-VALID_EXT = ('.avi', '.m4v', '.mkv', '.mov', '.mp4', '.mpeg', '.wmv')
 
 
 def request_data(title, year):
@@ -49,7 +45,7 @@ def main(dir_=MOVIEDIR):
             movie['Runtime'],
             movie['Rated'],
             movie['imdbRating'],
-            'http://www.imdb.com/title/' + movie['imdbID'] + '/',
+            IMDB_URL.format(movie['imdbID']),
         ))
 
     f.close()
