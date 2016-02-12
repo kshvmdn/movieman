@@ -1,19 +1,18 @@
 import requests
-import tabulate
 import os
 
 from pprint import pprint
+from tabulate import tabulate
 
-OMDB_URL = 'http://www.omdbapi.com/?type=movie&plot=long&tomatoes=true&t={}&y={}'
-
-
-def main(dir_='/Users/kashavmadan/Downloads/movies'):
-    for movie in get_movie_titles(dir_):
-        data = get_imdb_data(movie['title'][0], movie['title'][1])
+OMDB_URL = 'http://www.omdbapi.com/?type=movie&plot=short&tomatoes=true&t={}&y={}'
 
 
-def get_movie_titles(dir_):
-    movies = []
+def request_data(title, year):
+    return requests.get(OMDB_URL.format(title, year)).json()
+
+
+def get_titles(dir_):
+    movies = list()
     for root, dirs, files in os.walk(dir_):
         for file_ in files:
             movies.append({
@@ -23,7 +22,24 @@ def get_movie_titles(dir_):
     return movies
 
 
-def get_imdb_data(title, year):
-    return requests.get(OMDB_URL.format(title, year)).json()
+def main(dir_='/Users/kashavmadan/Downloads/movies'):
+    table = list()
+    table.append(['Title', 'Plot', 'Genre', 'Actors', 'Rating', 'Runtime', 'Released', 'Score'])
+    for t in get_titles(dir_):
+        movie = request_data(t['title'][0], t['title'][1])
+        table.append([
+            movie['Title'],
+            movie['Plot'],
+            movie['Genre'],
+            movie['Actors'],
+            movie['Rated'],
+            movie['Runtime'],
+            movie['Released'],
+            movie['imdbRating']])
+    f = open('movies.txt', 'w')
+    f.write(tabulate(table, headers='firstrow', tablefmt='fancy_grid'))
+    f.close()
 
-main()
+
+if __name__ == '__main__':
+    main()
