@@ -1,0 +1,49 @@
+{
+  "name": "movieman",
+  "version": "1.0.0",
+  "description": "A module and CLI for retrieving movie information.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npm run clean && babel src/ -d dist/",
+    "build:watch": "npm run clean && babel src/ -d dist/ --watch",
+    "clean": "rimraf dist/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "movieman": "cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kshvmdn/movieman.git"
+  },
+  "keywords": [],
+  "author": "Kashav Madan <kshvmdn@gmail.com> (kshvmdn.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kshvmdn/movieman/issues"
+  },
+  "homepage": "https://github.com/kshvmdn/movieman#readme",
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-core": "^6.10.4",
+    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "rimraf": "^2.5.2"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "got": "^6.3.0",
+    "left-pad": "^1.1.0",
+    "minimist": "^1.2.0",
+    "ora": "^0.2.3",
+    "pinkie-promise": "^2.0.1"
+  }
+}
