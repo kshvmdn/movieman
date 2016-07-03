@@ -3,7 +3,7 @@
 var chalk = require('chalk');
 var leftpad = require('left-pad');
 var minimist = require('minimist');
-var spinner = require('ora')('Loading...'); // TODO
+var spinner = require('ora')('Loading...');
 
 var movieman = require('./dist');
 var version = require('./package.json').version;
@@ -43,12 +43,13 @@ if (!title) {
   console.error('Expected movie title. Run `movieman -h` for help.')
   process.exit(1);
 }
-// spinner.start();
-// spinner.stop();
+
+spinner.start();
+
 movieman.getMovie().by.title(title, function(err, res) {
   if (err) throw err;
 
-  var keys = Object.keys(res);
+  spinner.stop();
 
   Object.keys(res).forEach(function(key) {
     console.log(key + chalk.yellow(leftpad('-›  ', 18 - key.length)) + res[key]);
