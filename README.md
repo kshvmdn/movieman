@@ -18,9 +18,9 @@ movieman.getMovie().by.title('the social network', (err, res) => {
   console.log(res); //=> http://www.omdbapi.com/?t=the%20social%20network&i=tt0096895&plot=short&r=json
 });
 
-movieman.getMovie().by.id('tt1628841')
+movieman.getMovie().by.id('tt0468569')
   .then((resp) => {
-    console.log(resp) //=> http://www.omdbapi.com/?i=tt1628841&plot=short&r=json
+    console.log(resp) //=> http://www.omdbapi.com/?i=tt0468569&plot=short&r=json
     })
   .catch((e) => {
     throw e;
@@ -34,6 +34,17 @@ movieman.getMovie().by.id('tt1628841')
 ```sh
 $ npm i -g movieman
 $ movieman the social network
+$ movieman --help
+  
+  Usage
+    $ movieman <title> [--help] [--version]
+
+  Options
+    -h --help      Display this help dialog.
+    -v --version   Display the current version.
+
+  Example
+    $ movieman the social network
 ```
 
 ## Contribute

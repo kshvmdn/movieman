@@ -18,7 +18,7 @@ var defaults = {
 
 var help = `
   Usage
-    $ movieman [OPTIONS] title
+    $ movieman <title> [--help] [--version]
 
   Options
     -h --help      Display this help dialog.
