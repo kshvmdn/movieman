@@ -11,42 +11,57 @@ var version = require('./package.json').version;
 var defaults = {
   alias: {
     h: 'help',
-    v: 'version'
+    v: 'version',
+    i: 'id',
   },
-  boolean: ['help', 'version']
+  boolean: [
+    'help', 
+    'version',
+  ],
+  default: {
+    i: null,
+  },
 };
 
 var help = `
   Usage
-    $ movieman <title> [--help] [--version]
+    $ movieman <title> [--id <imdb_id>] [--help] [--version] 
 
   Options
     -h --help      Display this help dialog.
     -v --version   Display the current version.
+    -i --id        Use IMDb ID instead of movie title.
 
   Example
-    $ movieman batman
+    $ movieman the dark knight
+    $ movieman --id tt0468569
 `;
 
 var options = minimist(process.argv.slice(2), defaults);
 
-if (options.help) {
-  console.log(help);
-  process.exit(0);
-} else if (options.version) {
-  console.log('v' + version);
+if (options.help || options.version) {
+  console.log(options.help ? help : 'v' + version);
   process.exit(0);
 }
 
-var title = options._.join(' ');
-if (!title) {
-  console.error('Expected movie title. Run `movieman -h` for help.')
+var param, getMovie; 
+
+if (options.id) {
+  param = options._.length > 0 ? options._[0] : options.id;
+  getMovie = movieman.getMovie.by.id;
+} else {
+  param = options._.join(' ');
+  getMovie = movieman.getMovie.by.title;
+}
+
+if (!param || !param.length || param.trim() === '') {
+  console.error((options.id ? 'Expected IMDb ID.' : 'Expected movie title.') + ' Run `movieman --help` for help.');
   process.exit(1);
 }
 
 spinner.start();
 
-movieman.getMovie().by.title(title, function(err, res) {
+getMovie(param, function(err, res) {
   if (err) throw err;
 
   spinner.stop();
