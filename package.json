@@ -1,6 +1,6 @@
 {
   "name": "movieman",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A module and CLI for retrieving movie information.",
   "main": "dist/index.js",
   "scripts": {
