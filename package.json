@@ -5,19 +5,17 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npm run clean && babel src/ -d dist/",
-    "build:watch": "npm run clean && babel src/ -d dist/ --watch",
+    "build:watch": "npm run clean && babel src -d dist/ --watch",
     "clean": "rimraf dist/",
-    "prepublish": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "npm run build"
   },
   "bin": {
-    "movieman": "cli.js"
+    "movieman": "./dist/cli.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kshvmdn/movieman.git"
   },
-  "keywords": [],
   "author": "Kashav Madan <kshvmdn@gmail.com> (kshvmdn.me)",
   "license": "MIT",
   "bugs": {
