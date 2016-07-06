@@ -2,15 +2,15 @@
   "name": "movieman",
   "version": "1.2.0",
   "description": "A module and CLI for retrieving movie information.",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "npm run clean && babel src/ -d dist/",
-    "build:watch": "npm run clean && babel src -d dist/ --watch",
-    "clean": "rimraf dist/",
+    "build": "npm run clean && babel src/ -d lib/",
+    "build:watch": "npm run clean && babel src -d lib/ --watch",
+    "clean": "rimraf lib/",
     "prepublish": "npm run build"
   },
   "bin": {
-    "movieman": "./dist/cli.js"
+    "movieman": "./lib/cli.js"
   },
   "repository": {
     "type": "git",
