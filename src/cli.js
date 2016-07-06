@@ -46,14 +46,14 @@ if (options.help || options.version) {
   process.exit(0);
 }
 
-let param, get;
+let param, getData;
 
 if (options.id) {
-  param = options.id ? options._.length > 0 ? options._[0] : options.id : options._.join(' ');
-  get = getMovie().by.ID;
+  param = options._.length > 0 ? options._[0] : options.id;
+  getData = getMovie().by.ID;
 } else {
   param = options._.join(' ');
-  get = getMovie().by.title;
+  getData = getMovie().by.title;
 }
 
 
@@ -64,7 +64,7 @@ if (!param || !param.length || param.trim() === '') {
 
 spinner.start();
 
-get(param, (err, resp) => {
+getData(param, (err, resp) => {
   spinner.stop();
 
   if (err) throw err;
